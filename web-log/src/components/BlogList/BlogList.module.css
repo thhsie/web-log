@@ -14,6 +14,7 @@
     transition: box-shadow 150ms ease, transform 100ms ease;
     margin-right: var(--mantine-spacing-xl);
     margin-top: var(--mantine-spacing-xl);
+    min-width: 300px;
   }
   
   .blogCard:hover {

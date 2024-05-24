@@ -1,27 +1,25 @@
-import { useState } from "react";
 import { Container, Anchor, Group, Box } from "@mantine/core";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import classes from "./Header.module.css";
 import { tabs } from "./tabs/tabs";
 
 export const Header: React.FC = () => {
-  const [active, setActive] = useState(0);
+  const location = useLocation();
   const navigate = useNavigate();
 
-  const handleTabClick = (index: number, link: string) => {
-    setActive(index);
+  const handleTabClick = (link: string) => {
     navigate(link);
   };
 
-  const mainItems = tabs.map((item, index) => (
+  const mainItems = tabs.map((item) => (
     <Anchor<"a">
       href={item.link}
       key={item.label}
       className={classes.mainLink}
-      data-active={index === active || undefined}
+      data-active={location.pathname === item.link || undefined}
       onClick={(event) => {
         event.preventDefault();
-        handleTabClick(index, item.link);
+        handleTabClick(item.link);
       }}
     >
       {item.label}
