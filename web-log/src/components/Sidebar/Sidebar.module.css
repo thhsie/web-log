@@ -1,0 +1,90 @@
+.sidebar {
+  background-color: var(--mantine-color-body);
+  height: auto;
+  width: rem(300px);
+  padding: var(--mantine-spacing-md);
+  display: flex;
+  flex-direction: column;
+  border-right: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  transition: width 0.3s ease;
+}
+
+.expanded {
+  width: rem(300px);
+}
+
+.reduced {
+  width: rem(80px);
+}
+
+.sidebarMain {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.title {
+  text-transform: uppercase;
+  letter-spacing: rem(-0.25px);
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-size: var(--mantine-font-size-sm);
+  color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-1));
+  padding: var(--mantine-spacing-xs) var(--mantine-spacing-sm);
+  border-radius: var(--mantine-radius-sm);
+  font-weight: 500;
+}
+
+.link:hover {
+  background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+}
+
+.link:hover .linkIcon {
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+}
+
+.link.active,
+.link.active:hover {
+  background-color: var(--mantine-color-blue-light);
+  color: var(--mantine-color-blue-light-color);
+}
+
+.link.active .linkIcon,
+.link.active:hover .linkIcon {
+  color: var(--mantine-color-blue-light-color);
+}
+
+.linkIcon {
+  color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-2));
+  margin-right: var(--mantine-spacing-sm);
+  width: rem(25px);
+  height: rem(25px);
+}
+
+.toggleButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: var(--mantine-spacing-xs) var(--mantine-spacing-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  border-left: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+}
+
+.segmentedControl {
+  margin-top: var(--mantine-spacing-md);
+}
+
+.hidden {
+  display: none;
+}
