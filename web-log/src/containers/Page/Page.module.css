@@ -1,7 +1,8 @@
 .pageContainer {
-    height: 1000px;
+    height: 100vh;
     width: 100%;
-    overflow: hidden;
+    display: flex;
+    flex-direction: row;
   }
   
   .pageContent {
@@ -9,8 +10,10 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    max-height: 100vh;
     overflow-y: auto;
   }
+  
   
   .pageBody {
     flex: 1;

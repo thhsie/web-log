@@ -24,7 +24,7 @@ export const LandingPage: React.FC = () => {
         >
           This technical assignment
         </Anchor>{" "}
-        showcases use of React concepts (router, components, state, props,
+        showcases the use of React concepts (router, components, state, props,
         lifecycle methods, hooks). Furthermore, TanStack Query, a library
         designed to replace global state managers such as Redux and MobX is
         incorporated. More information on how they provide this better approach
@@ -35,7 +35,7 @@ export const LandingPage: React.FC = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          here
+          here.
         </Anchor>{" "}
       </Text>
     </>

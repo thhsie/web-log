@@ -8,7 +8,9 @@
   }
   
   .blogCard {
-    background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
+    background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-8));
+    border: 1px solid light-dark(var(--mantine-color-blue-2), var(--mantine-color-blue-9));
+    box-shadow: 0 2px 4px light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
     transition: box-shadow 150ms ease, transform 100ms ease;
     margin-right: var(--mantine-spacing-xl);
     margin-top: var(--mantine-spacing-xl);
@@ -28,20 +30,23 @@
   
   .blogContent {
     margin-top: var(--mantine-spacing-md);
+    padding-bottom: var(--mantine-spacing-xl);
   }
   
   .readMoreLink {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: flex-end;
     color: var(--mantine-color-blue-6);
     font-weight: 500;
     transition: color 150ms ease;
+    text-decoration: none;
+    width: auto;
   }
   
   .readMoreLink:hover {
     color: var(--mantine-color-blue-7);
-  }
+  }  
   
   .pagination {
     margin-top: var(--mantine-spacing-xl);

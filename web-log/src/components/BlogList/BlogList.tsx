@@ -1,19 +1,8 @@
-import {
-  Title,
-  Text,
-  Anchor,
-  Card,
-  Grid,
-  Pagination,
-  useMantineTheme,
-} from "@mantine/core";
-import { useState } from "react";
+import { Title, Text, Card, Grid, Button } from "@mantine/core";
 import { IconChevronRight } from "@tabler/icons-react";
 import classes from "./BlogList.module.css";
 
 export const BlogList: React.FC = () => {
-  const [activePage, setActivePage] = useState(1);
-
   const blogs = [
     {
       id: 1,
@@ -59,34 +48,35 @@ export const BlogList: React.FC = () => {
       <Text size="sm" c="dimmed" className={classes.blogContent}>
         {blog.content}
       </Text>
-      <Anchor
-        href={`/blogs/${blog.id}`}
-        size="sm"
-        mt="md"
+      <Button
+        variant="light"
+        radius="xl"
+        size="xs"
         component="a"
+        href={`/blogs/${blog.id}`}
         className={classes.readMoreLink}
       >
         Read more <IconChevronRight size={16} />
-      </Anchor>
+      </Button>
     </Card>
   ));
 
   return (
     <>
       <Title order={1} mb="xl" className={classes.pageTitle}>
-        View Blogs
+        Browse{" "}
+        <Text
+          inherit
+          variant="gradient"
+          component="span"
+          gradient={{ from: "pink", to: "yellow" }}
+        >
+          weblogs
+        </Text>
       </Title>
       <Grid gutter="xl" className={classes.blogGrid}>
         {blogCards}
       </Grid>
-      {/* <Pagination
-        page={activePage}
-        onChange={setActivePage}
-        total={Math.ceil(blogs.length / 4)}
-        position="center"
-        mt="xl"
-        className={classes.pagination}
-      /> */}
     </>
   );
 };
