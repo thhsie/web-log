@@ -34,5 +34,5 @@ Weblog is a simple CRUD (Create, Read, Update, Delete) app built using Vite, Rea
 
 The Weblog project consists of two main components:
 
-1. **Weblog.Client**: A React-based client application that provides a user interface for interacting with the blog posts.
+1. **weblog-client**: A React-based client application that provides a user interface for interacting with the blog posts.
 2. **Weblog.Api**: A .NET minimal API that provides a CRUD (Create, Read, Update, Delete) interface for managing blog posts.
