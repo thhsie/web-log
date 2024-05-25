@@ -1,6 +1,6 @@
 # Weblog
 
-Weblog is a full-stack web application that includes a React client and a .NET minimal API. The application allows users to manage blog posts.
+Weblog is a simple CRUD (Create, Read, Update, Delete) app built using Vite, React, and Bun as a technical assignment. Additionally a minimal API is included.
 
 ## Prerequisites
 
@@ -26,7 +26,7 @@ Weblog is a full-stack web application that includes a React client and a .NET m
    docker-compose up --build
    ```
 
-   This will build and start the minimal API and the client applications.
+   This will build and start the app.
 
    > If you prefer to run React client app only, please refer to the individual README file in the `weblog-client` directory.
 
@@ -34,5 +34,5 @@ Weblog is a full-stack web application that includes a React client and a .NET m
 
 The Weblog project consists of two main components:
 
-1. **Weblog.Api**: A .NET 8 minimal API that provides a CRUD (Create, Read, Update, Delete) interface for managing blog posts.
-2. **Weblog.Client**: A React-based client application that consumes the minimal API and provides a user interface for interacting with the blog posts.
+1. **Weblog.Client**: A React-based client application that provides a user interface for interacting with the blog posts.
+2. **Weblog.Api**: A .NET minimal API that provides a CRUD (Create, Read, Update, Delete) interface for managing blog posts.
