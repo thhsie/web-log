@@ -8,6 +8,7 @@ import { Header } from "../../components/Header/Header";
 import { Page } from "../Page/Page";
 import { CreateBlog } from "../../components/CreateBlog/CreateBlog";
 import { BlogList } from "../../components/BlogList/BlogList";
+import { BlogPost } from "../../components/BlogPost/BlogPost";
 
 export const App: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ export const App: React.FC = () => {
       <Header />
       {/* Main app node */}
       <Routes>
+        <Route path={"*"} element={<LandingPage />} />
         <Route path={routes.LANDING} element={<LandingPage />} />
         <Route
           path={routes.CREATE_BLOG}
@@ -29,6 +31,14 @@ export const App: React.FC = () => {
           element={
             <Page>
               <BlogList />
+            </Page>
+          }
+        />
+        <Route
+          path={routes.BLOG}
+          element={
+            <Page>
+              <BlogPost />
             </Page>
           }
         />
