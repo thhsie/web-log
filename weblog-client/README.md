@@ -1,15 +1,16 @@
 # Weblog
 
-Weblog is a simple CRUD app built using Vite, React, and Bun as a technical assignment.
+Weblog is a simple CRUD (Create, Read, Update, Delete) app built using Vite, React, and Bun as a technical assignment.
 
 ## Prerequisites
+
 - [Bun](https://bun.sh/) (version 1.1.9 or higher)
 
 ## Setup
 
 1. Navigate to the main directory where the `package.json` file is located:
    ```
-   cd web-log/web-log
+   cd Weblog/weblog-client
    ```
 2. Install dependencies:
    ```
@@ -22,4 +23,4 @@ Weblog is a simple CRUD app built using Vite, React, and Bun as a technical assi
 
 ## API Integration
 
-This app can also be integrated with an API built using .NET 8. Alternatively, it can provide mock data, which can be selected using the dropdown in the sidebar.
+This client app consumes a minimal API built using .NET and written in C#.
