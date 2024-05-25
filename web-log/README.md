@@ -1,30 +1,22 @@
-# React + TypeScript + Vite
+# Weblog
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Weblog is a simple app built using Vite, React, and Bun as a technical assignment.
 
-Currently, two official plugins are available:
+## Prerequisites
+- [Node.js](https://nodejs.org/) (version 20.11.1 or higher)
+- [Bun](https://bun.sh/) (version 1.1.9 or higher)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Setup
 
-## Expanding the ESLint configuration
+1. Install dependencies:
+   ```
+   bun install
+   ```
+2. Start the development server:
+   ```
+   bun run dev
+   ```
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## API Integration
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+This app can also be integrated with a minimal API built using .NET 8 and deployed on Azure. Alternatively, it can provide mock data, which can be selected using the dropdown in the sidebar.

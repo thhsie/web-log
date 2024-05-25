@@ -87,3 +87,23 @@
 .hidden {
   display: none;
 }
+
+.preferencesTitle {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--mantine-spacing-xl);
+}
+
+.spacer {
+  height: var(--mantine-spacing-xl);
+}
+
+.dataSourceTitle {
+  margin-bottom: -10px;
+  color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-1));
+  font-weight: 500;
+}
+
+.dataSourceSelect {
+  margin-top: var(--mantine-spacing-sm);
+}
