@@ -22,4 +22,4 @@ Weblog is a simple CRUD app built using Vite, React, and Bun as a technical assi
 
 ## API Integration
 
-This app can also be integrated with a minimal API built using .NET 8 and deployed on Azure. Alternatively, it can provide mock data, which can be selected using the dropdown in the sidebar.
+This app can also be integrated with an API built using .NET 8. Alternatively, it can provide mock data, which can be selected using the dropdown in the sidebar.
