@@ -1,0 +1,43 @@
+version: '3.9'
+
+networks:
+  app-network:
+    driver: bridge
+
+services:
+
+  # Minimal .NET API
+  blog-api:
+    image: ${DOCKER_REGISTRY-}blog-api
+    container_name: blog-api
+    restart: always
+    build:
+      context: .
+      dockerfile: Weblog.Api/Dockerfile
+    expose:
+      - 80
+    ports:
+     - "8080:80"
+    links:
+      - blog-sql-server
+    networks:
+      - app-network
+    depends_on:
+      - blog-sql-server
+
+  # SQL Server
+  blog-sql-server:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    cap_add: [ 'SYS_PTRACE' ]
+    hostname: mssql
+    container_name: blog-sql-server
+    restart: always
+    expose:
+      - 1433
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=pMA63033n6tF
+    networks:
+      - app-network
