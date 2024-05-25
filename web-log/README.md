@@ -1,18 +1,21 @@
 # Weblog
 
-Weblog is a simple app built using Vite, React, and Bun as a technical assignment.
+Weblog is a simple CRUD app built using Vite, React, and Bun as a technical assignment.
 
 ## Prerequisites
-- [Node.js](https://nodejs.org/) (version 20.11.1 or higher)
 - [Bun](https://bun.sh/) (version 1.1.9 or higher)
 
 ## Setup
 
-1. Install dependencies:
+1. Navigate to the main directory where the `package.json` file is located:
+   ```
+   cd web-log/web-log
+   ```
+2. Install dependencies:
    ```
    bun install
    ```
-2. Start the development server:
+3. Start the development server:
    ```
    bun run dev
    ```
