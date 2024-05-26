@@ -17,7 +17,7 @@ export const LandingPage: React.FC = () => {
       </Title>
       <Text c="dimmed" ta="center" size="lg" maw={580} mx="auto" mt="xl">
         <Anchor
-          href="https://github.com/thhsie/web-log"
+          href="https://github.com/thhsie/Weblog"
           size="lg"
           target="_blank"
           rel="noopener noreferrer"

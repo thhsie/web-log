@@ -23,7 +23,6 @@ builder.Services.AddOpenApiDocument(config =>
 
 var app = builder.Build();
 
-// Apply any pending migrations on application startup
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<BlogDbContext>();
@@ -45,46 +44,7 @@ app.UseSwaggerUi(config =>
 });
 
 
-app.MapGet("/blogs", GetAllBlogs);
-app.MapGet("/blogs/{id}", GetBlogById);
-app.MapPost("/blogs", CreateBlog);
-app.MapPut("/blogs/{id}", UpdateBlog);
-app.MapDelete("/blogs/{id}", DeleteBlog);
+app.MapBlogEndpoints();
 
 app.Run();
 
-async Task<IResult> GetAllBlogs(IBlogService blogService)
-{
-    var blogs = await blogService.GetAllAsync();
-    return Results.Ok(blogs);
-}
-
-async Task<IResult> GetBlogById(int id, IBlogService blogService)
-{
-    var blog = await blogService.GetByIdAsync(id);
-    if (blog == null)
-        return Results.NotFound();
-    return Results.Ok(blog);
-}
-
-async Task<IResult> CreateBlog(Blog blog, IBlogService blogService)
-{
-    var createdBlog = await blogService.CreateAsync(blog);
-    return Results.Created($"/blogs/{createdBlog.Id}", createdBlog);
-}
-
-async Task<IResult> UpdateBlog(int id, Blog blog, IBlogService blogService)
-{
-    var updatedBlog = await blogService.UpdateAsync(id, blog);
-    if (updatedBlog == null)
-        return Results.NotFound();
-    return Results.Ok(updatedBlog);
-}
-
-async Task<IResult> DeleteBlog(int id, IBlogService blogService)
-{
-    var isDeleted = await blogService.DeleteAsync(id);
-    if (!isDeleted)
-        return Results.NotFound();
-    return Results.NoContent();
-}

@@ -4,7 +4,7 @@ Weblog is a simple CRUD (Create, Read, Update, Delete) app built using Vite, Rea
 
 ## Prerequisites
 
-- Docker Desktop
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
 ## Getting Started
 
