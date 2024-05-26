@@ -1,10 +1,12 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { Title, Text, ActionIcon, Tooltip, rem, Loader } from "@mantine/core";
+import { Title, ActionIcon, Tooltip, rem, Loader, Text, Box } from "@mantine/core";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { routes } from "../../routes/routes";
 import { useQuery } from "@tanstack/react-query";
 import WeblogClient from "../../api/WeblogClient";
 import { notifications } from "@mantine/notifications";
+import ReactMarkdown from 'react-markdown';
+import classes from './BlogPost.module.css'
 
 export const BlogPost: React.FC = () => {
   const { blogId } = useParams<{ blogId: string }>();
@@ -76,7 +78,9 @@ export const BlogPost: React.FC = () => {
           {blog.title}
         </Title>
       </div>
-      <Text size="lg">{blog.content}</Text>
+      <Box className={classes.blogPostContainer}>
+        <ReactMarkdown>{blog.content}</ReactMarkdown>
+      </Box>
     </>
   );
 };

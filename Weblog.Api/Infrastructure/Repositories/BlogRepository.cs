@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Weblog.Api.Application.Interfaces;
+using Weblog.Api.Domain.DTOs;
 using Weblog.Api.Domain.Entities;
 using Weblog.Api.Infrastructure.Data;
 
@@ -14,10 +15,18 @@ public class BlogRepository : IBlogRepository
         _dbContext = dbContext;
     }
 
-    public async Task<IEnumerable<Blog>> GetAllAsync()
+    public async Task<IEnumerable<BlogPreview>> GetAllAsync()
     {
-        return await _dbContext.Blogs.ToListAsync();
+        var blogs = await _dbContext.Blogs.Select(b => new BlogPreview
+        {
+            Id = b.Id,
+            Title = b.Title,
+            TruncatedContent = b.TruncatedContent!
+        }).ToListAsync();
+
+        return blogs;
     }
+
 
     public async Task<Blog?> GetByIdAsync(int id)
     {

@@ -1,4 +1,4 @@
-import { Title, TextInput, Textarea, Button, Text } from "@mantine/core";
+import { Title, TextInput, Textarea, Button, Text, Box } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import WeblogClient from "../../api/WeblogClient";
@@ -6,6 +6,7 @@ import { Blog, IBlog } from "../../api/api";
 import { notifications } from "@mantine/notifications";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../routes/routes";
+import styles from "./CreateBlog.module.css";
 
 export const CreateBlog: React.FC = () => {
   const queryClient = useQueryClient();
@@ -20,6 +21,8 @@ export const CreateBlog: React.FC = () => {
     validate: {
       title: (value) =>
         value.trim().length < 3 ? "Title must be at least 3 characters" : null,
+      content: (value) =>
+        value.trim().length > 0 ? null :  "Content cannot be empty",
     },
   });
 
@@ -51,7 +54,7 @@ export const CreateBlog: React.FC = () => {
   };
 
   return (
-    <>
+    <Box className={styles.createBlogContainer}>
       <Title order={1} mb="xl">
         Create a new{" "}
         <Text
@@ -75,6 +78,7 @@ export const CreateBlog: React.FC = () => {
           placeholder="Blog content"
           mb="md"
           minRows={20}
+          maxRows={20}
           autosize
           {...form.getInputProps("content")}
         />
@@ -89,6 +93,6 @@ export const CreateBlog: React.FC = () => {
           Save
         </Button>
       </form>
-    </>
+    </Box>
   );
 };

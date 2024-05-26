@@ -8,6 +8,7 @@ import {
   ActionIcon,
   rem,
   Loader,
+  Box,
 } from "@mantine/core";
 import {
   IconChevronRight,
@@ -145,7 +146,7 @@ export const BlogList: React.FC = () => {
 
   return (
     <>
-      <Title order={1} mb="xl" className={classes.pageTitle}>
+      <Title order={1} mb="sm">
         Browse{" "}
         <Text
           inherit
@@ -156,9 +157,12 @@ export const BlogList: React.FC = () => {
           weblogs
         </Text>
       </Title>
-      <Grid gutter="xl" className={classes.blogGrid}>
-        {blogCards}
-      </Grid>
+      <Box>
+        <Grid gutter="md">
+          {blogCards}
+        </Grid>
+      </Box>
+
       <ConfirmationModal
         opened={isDeleteModalOpen}
         onClose={handleCancelDelete}

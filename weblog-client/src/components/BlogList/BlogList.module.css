@@ -1,19 +1,11 @@
-.pageTitle {
-  font-family: Greycliff CF, var(--mantine-font-family);
-  font-weight: 700;
-}
-
-.blogGrid {
-  margin-top: var(--mantine-spacing-xl);
-}
-
 .blogCard {
   background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-8));
   border: 1px solid light-dark(var(--mantine-color-blue-2), var(--mantine-color-blue-9));
   box-shadow: 0 2px 4px light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
   transition: box-shadow 150ms ease, transform 100ms ease;
   margin-right: var(--mantine-spacing-xl);
-  margin-top: var(--mantine-spacing-xl);
+  
+  margin-bottom: var(--mantine-spacing-xl);
   min-width: 300px;
 }
 
@@ -58,4 +50,13 @@
 
 .errorNotification {
   margin-top: var(--mantine-spacing-xl);
+}
+
+.blogListContainer {
+  flex: 1;
+  padding: var(--mantine-spacing-md);
+  padding-left: var(--mantine-spacing-xl) ;
+  overflow-y: auto;
+  max-height: 100vh;
+  min-width: auto;
 }

@@ -1,4 +1,5 @@
 using Weblog.Api.Application.Interfaces;
+using Weblog.Api.Domain.DTOs;
 using Weblog.Api.Domain.Entities;
 
 namespace Weblog.Api.Application.Services;
@@ -12,7 +13,7 @@ public class BlogService : IBlogService
         _blogRepository = blogRepository;
     }
 
-    public async Task<IEnumerable<Blog>> GetAllAsync()
+    public async Task<IEnumerable<BlogPreview>> GetAllAsync()
     {
         return await _blogRepository.GetAllAsync();
     }
