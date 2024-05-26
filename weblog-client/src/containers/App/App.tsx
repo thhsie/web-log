@@ -1,4 +1,5 @@
 import "@mantine/core/styles.css";
+import '@mantine/notifications/styles.css';
 import { MantineProvider } from "@mantine/core";
 import { theme } from "../../theme";
 import { Route, Routes } from "react-router-dom";
@@ -9,10 +10,12 @@ import { Page } from "../Page/Page";
 import { CreateBlog } from "../../components/CreateBlog/CreateBlog";
 import { BlogList } from "../../components/BlogList/BlogList";
 import { BlogPost } from "../../components/BlogPost/BlogPost";
+import { Notifications } from "@mantine/notifications";
 
 export const App: React.FC = () => {
   return (
     <MantineProvider theme={theme}>
+      <Notifications />
       <Header />
       {/* Main app node */}
       <Routes>

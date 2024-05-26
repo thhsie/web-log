@@ -7,38 +7,91 @@ import {
   Menu,
   ActionIcon,
   rem,
+  Loader,
 } from "@mantine/core";
-import { IconChevronRight, IconDots, IconTrash } from "@tabler/icons-react";
+import {
+  IconChevronRight,
+  IconDots,
+  IconTrash,
+} from "@tabler/icons-react";
 import classes from "./BlogList.module.css";
 import { ConfirmationModal } from "../ConfirmationModal/ConfirmationModal";
 import { useState } from "react";
-import { blogs } from "../../mocks/blogList";
 import { Link } from "react-router-dom";
 import { routes } from "../../routes/routes";
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { Blog } from '../../api/api';
+import WeblogClient from "../../api/WeblogClient";
+import { notifications } from '@mantine/notifications';
 
 export const BlogList: React.FC = () => {
-  //const [blogs, setBlogs] = useState(/* data */);
-  //const [deleteBlogId, setDeleteBlogId] = useState<number | null>(null);
+  const queryClient = useQueryClient();
+  const blogClient = new WeblogClient();
+
+  const { data: blogs, isLoading, isError, error } = useQuery({
+    queryKey: ['blogs'],
+    queryFn: async () => {
+      const response = await blogClient.getBlogs();
+      return response;
+    }
+  });
+
+  const [deleteBlogId, setDeleteBlogId] = useState<number | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
+  const deleteBlogMutation = useMutation({
+    mutationFn: (id: number) => blogClient.deleteBlog(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['blogs'] })
+    },
+  });
+
   const handleDeleteBlog = (blogId: number) => {
-    //setDeleteBlogId(blogId);
+    setDeleteBlogId(blogId);
     setIsDeleteModalOpen(true);
   };
 
-  const handleConfirmDelete = () => {
-    //if (deleteBlogId !== null) {
-    // Remove blog
-    //setBlogs(blogs.filter((blog) => blog.id !== deleteBlogId));
-    //}
-    setIsDeleteModalOpen(false);
+  const handleConfirmDelete = async () => {
+    if (deleteBlogId !== null) {
+      try {
+        await deleteBlogMutation.mutateAsync(deleteBlogId);
+        queryClient.invalidateQueries({ queryKey: ['blogs'] });
+        notifications.show({
+          title: 'Blog deleted',
+          message: 'The blog post has been successfully deleted.',
+        });
+      } catch (error) {
+        notifications.show({
+          title: 'Error deleting blog',
+          message: 'There was an error deleting the blog post.',
+          color: 'red',
+        });
+      }
+      setIsDeleteModalOpen(false);
+    }
   };
 
   const handleCancelDelete = () => {
     setIsDeleteModalOpen(false);
   };
 
-  const blogCards = blogs.map((blog) => (
+  if (isLoading) {
+    return (
+      <div className={classes.loadingContainer}>
+        <Loader size="xl" />
+      </div>
+    );
+  }
+
+  if (isError) {
+    notifications.show({
+      title: 'Something went wrong',
+      message: (error).message,
+      color: 'red',
+    });
+  }
+
+  const blogCards = (blogs ?? []).map((blog: Blog) => (
     <Card
       key={blog.id}
       shadow="sm"
@@ -49,12 +102,12 @@ export const BlogList: React.FC = () => {
     >
       <Card.Section>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <Title order={3} className={classes.blogTitle}>
+          <Title order={3} className={classes.blogTitle} mr="sm">
             {blog.title}
           </Title>
           <Menu>
             <Menu.Target>
-              <ActionIcon variant="light">
+              <ActionIcon variant="light" mt="sm" mr="sm">
                 <IconDots size={16} />
               </ActionIcon>
             </Menu.Target>
@@ -66,7 +119,7 @@ export const BlogList: React.FC = () => {
                     stroke={1.5}
                   />
                 }
-                onClick={() => handleDeleteBlog(blog.id)}
+                onClick={() => handleDeleteBlog(blog.id!)}
               >
                 Delete
               </Menu.Item>
@@ -75,7 +128,7 @@ export const BlogList: React.FC = () => {
         </div>
       </Card.Section>
       <Text size="sm" c="dimmed" className={classes.blogContent}>
-        {blog.content}
+        {blog.truncatedContent}
       </Text>
       <Link to={`${routes.BLOGS_VIEW}/${blog.id}`}>
         <Button

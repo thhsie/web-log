@@ -7,6 +7,17 @@ using Weblog.Api.Domain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:5173")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
 builder.Services.AddDbContext<BlogDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection")));
 
@@ -33,6 +44,7 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
+app.UseCors();
 
 app.UseOpenApi();
 app.UseSwaggerUi(config =>

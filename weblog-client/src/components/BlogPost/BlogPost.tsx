@@ -1,26 +1,55 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { Title, Text, ActionIcon, Tooltip, rem } from "@mantine/core";
+import { Title, Text, ActionIcon, Tooltip, rem, Loader } from "@mantine/core";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { routes } from "../../routes/routes";
-import { blogs } from "../../mocks/blogList";
-
-// Temporary blog model
-export interface Blog {
-  id: number;
-  title: string;
-  content: string;
-}
+import { useQuery } from "@tanstack/react-query";
+import WeblogClient from "../../api/WeblogClient";
+import { notifications } from "@mantine/notifications";
 
 export const BlogPost: React.FC = () => {
   const { blogId } = useParams<{ blogId: string }>();
   const navigate = useNavigate();
+  const blogClient = new WeblogClient();
 
-  //const blog = fetchBlogData(parseInt(blogId || "0"));
-  const blog = blogs[0];
+  const { data: blog, isLoading, isError, error } = useQuery({
+    queryKey: ["blog", blogId],
+    queryFn: async () => {
+      if (blogId) {
+        const response = await blogClient.getBlog(parseInt(blogId));
+        return response;
+      }
+      return null;
+    },
+  });
 
   const handleGoBack = () => {
     navigate(routes.BLOGS_VIEW);
   };
+
+  if (isLoading) {
+    return (
+      <div>
+        <Loader size="xl" />
+      </div>
+    );
+  }
+
+  if (isError) {
+    notifications.show({
+      title: "Something went wrong",
+      message: (error).message,
+      color: "red",
+    });
+    return null;
+  }
+
+  if (!blog) {
+    return (
+      <div>
+        <Text>Blog not found</Text>
+      </div>
+    );
+  }
 
   return (
     <>

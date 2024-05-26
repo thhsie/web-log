@@ -1,7 +1,17 @@
 import { Title, TextInput, Textarea, Button, Text } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import WeblogClient from "../../api/WeblogClient";
+import { Blog, IBlog } from "../../api/api";
+import { notifications } from "@mantine/notifications";
+import { useNavigate } from "react-router-dom";
+import { routes } from "../../routes/routes";
 
 export const CreateBlog: React.FC = () => {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const blogClient = new WeblogClient();
+
   const form = useForm({
     initialValues: {
       title: "",
@@ -10,15 +20,34 @@ export const CreateBlog: React.FC = () => {
     validate: {
       title: (value) =>
         value.trim().length < 3 ? "Title must be at least 3 characters" : null,
-      content: (value) =>
-        value.trim().length < 10
-          ? "Content must be at least 10 characters"
-          : null,
     },
   });
 
-  const handleSubmit = (values) => {
-    console.log(values);
+  const createBlogMutation = useMutation({
+    mutationFn: (blog: Blog) => blogClient.createBlog(blog),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["blogs"] });
+      navigate(routes.BLOGS_VIEW);
+      notifications.show({
+        title: "Blog created",
+        message: "The blog post has been successfully created.",
+      });
+    },
+    onError: (error) => {
+      notifications.show({
+        title: "Error creating blog",
+        message: (error).message,
+        color: "red",
+      });
+    },
+  });
+
+  const handleSubmit = (values: IBlog) => {
+    const newBlog: IBlog = {
+      title: values.title,
+      content: values.content,
+    };
+    createBlogMutation.mutate(newBlog as Blog);
   };
 
   return (
@@ -50,7 +79,13 @@ export const CreateBlog: React.FC = () => {
           {...form.getInputProps("content")}
         />
 
-        <Button type="submit" variant="light" radius="xl" size="md">
+        <Button
+          type="submit"
+          variant="light"
+          radius="xl"
+          size="md"
+          loading={createBlogMutation.isPending}
+        >
           Save
         </Button>
       </form>
