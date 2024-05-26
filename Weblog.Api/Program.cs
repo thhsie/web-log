@@ -30,6 +30,7 @@ builder.Services.AddOpenApiDocument(config =>
     config.DocumentName = "Weblog.Api";
     config.Title = "Weblog.Api v1";
     config.Version = "v1";
+    config.Description = "API deployment for https://github.com/thhsie/Weblog. Intended to be consumed by weblog-client.";
 });
 
 var app = builder.Build();
