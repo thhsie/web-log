@@ -1,5 +1,5 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { Title, ActionIcon, Tooltip, rem, Loader, Text, Box } from "@mantine/core";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { Title, ActionIcon, Tooltip, rem, Loader, Text, Box, Button } from "@mantine/core";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { routes } from "../../routes/routes";
 import { useQuery } from "@tanstack/react-query";
@@ -55,14 +55,7 @@ export const BlogPost: React.FC = () => {
 
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          marginBottom: "var(--mantine-spacing-xl)",
-          marginLeft: rem(-120),
-        }}
-      >
+      <div className={classes.blogPostHeader}>
         <Tooltip label="Go back" position="right" withArrow>
           <ActionIcon
             variant="light"
@@ -74,9 +67,18 @@ export const BlogPost: React.FC = () => {
             <IconArrowLeft size={24} />
           </ActionIcon>
         </Tooltip>
-        <Title order={1} ml="xl">
-          {blog.title}
-        </Title>
+        <Title order={1} mr="xl">{blog.title}</Title>
+        <div className={classes.blogPostHeaderContent}>
+          <Link to={`${routes.EDIT_BLOG}/${blog.id}`}>
+            <Button
+              variant="light"
+              radius="xl"
+              size="md"
+            >
+              Edit
+            </Button>
+          </Link>
+        </div>
       </div>
       <Box className={classes.blogPostContainer}>
         <ReactMarkdown>{blog.content}</ReactMarkdown>

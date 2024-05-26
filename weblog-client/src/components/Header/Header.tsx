@@ -1,9 +1,11 @@
-import { Container, Anchor, Group, Box } from "@mantine/core";
-import { useNavigate, useLocation } from "react-router-dom";
-import classes from "./Header.module.css";
-import { tabs } from "./tabs/tabs";
+import { Container, Anchor, Group, Burger, Box } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import { useNavigate, useLocation } from 'react-router-dom';
+import classes from './Header.module.css';
+import { tabs } from './tabs/tabs';
 
 export const Header: React.FC = () => {
+  const [opened, { toggle }] = useDisclosure(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -12,7 +14,7 @@ export const Header: React.FC = () => {
   };
 
   const mainItems = tabs.map((item) => (
-    <Anchor<"a">
+    <Anchor<'a'>
       href={item.link}
       key={item.label}
       className={classes.mainLink}
@@ -34,6 +36,13 @@ export const Header: React.FC = () => {
             {mainItems}
           </Group>
         </Box>
+        <Burger
+          opened={opened}
+          onClick={toggle}
+          className={classes.burger}
+          size="sm"
+          hiddenFrom="sm"
+        />
       </Container>
     </header>
   );

@@ -1,5 +1,20 @@
 .blogPostContainer {
     flex: 1;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .blogPostHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--mantine-spacing-xl);
+  }
+  
+  .blogPostHeaderContent {
+    display: flex;
+    align-items: center;
+    gap: var(--mantine-spacing-xl);
   }
   

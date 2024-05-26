@@ -28,7 +28,7 @@ Weblog is a simple CRUD (Create, Read, Update, Delete) app built using Vite, Rea
 
    This will build and start the app.
 
-   > If you prefer to run React client app only, please refer to the individual README file in the `weblog-client` directory.
+   > If you prefer to run the React client app only, please refer to the individual README file in the `weblog-client` directory.
 
 ## Project Structure
 

@@ -1,21 +1,34 @@
-import { Title, TextInput, Textarea, Button, Text, Box, Paper } from "@mantine/core";
+import { Title, TextInput, Textarea, Button, Text, Box, Paper, Loader } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import WeblogClient from "../../api/WeblogClient";
 import { Blog, IBlog } from "../../api/api";
 import { notifications } from "@mantine/notifications";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { routes } from "../../routes/routes";
+import { useEffect } from "react";
 
-export const CreateBlog: React.FC = () => {
+export const EditBlog: React.FC = () => {
+  const { blogId } = useParams<{ blogId: string }>();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const blogClient = new WeblogClient();
 
+  const { data: blog, isLoading, isError, error } = useQuery({
+    queryKey: ["blog", blogId],
+    queryFn: async () => {
+      if (blogId) {
+        const response = await blogClient.getBlog(parseInt(blogId));
+        return response;
+      }
+      return null;
+    },
+  });
+
   const form = useForm({
     initialValues: {
-      title: "",
-      content: "",
+      title: blog?.title ?? "",
+      content: blog?.content ?? "",
     },
     validate: {
       title: (value) =>
@@ -25,19 +38,20 @@ export const CreateBlog: React.FC = () => {
     },
   });
 
-  const createBlogMutation = useMutation({
-    mutationFn: (blog: Blog) => blogClient.createBlog(blog),
+  const updateBlogMutation = useMutation({
+    mutationFn: (updatedBlog: Blog) => blogClient.updateBlog(updatedBlog.id!, updatedBlog),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["blogs"] });
+      queryClient.invalidateQueries({ queryKey: ["blog", blogId] });
       navigate(routes.BLOGS_VIEW);
       notifications.show({
-        title: "Blog created",
-        message: "The blog post has been successfully created.",
+        title: "Blog updated",
+        message: "The blog post has been successfully updated.",
       });
     },
     onError: (error) => {
       notifications.show({
-        title: "Error creating blog",
+        title: "Error updating blog",
         message: (error).message,
         color: "red",
       });
@@ -45,17 +59,52 @@ export const CreateBlog: React.FC = () => {
   });
 
   const handleSubmit = (values: IBlog) => {
-    const newBlog: IBlog = {
+    const updatedBlog: IBlog = {
+      id: blog?.id,
       title: values.title,
       content: values.content,
     };
-    createBlogMutation.mutate(newBlog as Blog);
+    updateBlogMutation.mutate(updatedBlog as Blog);
   };
+    
+  useEffect(() => {
+    if (blog) {
+      form.setValues({
+        title: blog.title,
+        content: blog.content,
+      });
+    }
+  }, [blog]);
+
+  if (isLoading) {
+    return (
+      <div>
+        <Loader size="xl" />
+      </div>
+    );
+  }
+
+  if (isError) {
+    notifications.show({
+      title: "Something went wrong",
+      message: (error).message,
+      color: "red",
+    });
+    return null;
+  }
+
+  if (!blog) {
+    return (
+      <div>
+        <Text>Blog not found</Text>
+      </div>
+    );
+  }
 
   return (
     <>
       <Title order={1} mb="xl">
-        Create a new{" "}
+        Edit{" "}
         <Text
           inherit
           variant="gradient"
@@ -95,7 +144,7 @@ export const CreateBlog: React.FC = () => {
               variant="light"
               radius="xl"
               size="md"
-              loading={createBlogMutation.isPending}
+              loading={updateBlogMutation.isPending}
             >
               Save
             </Button>

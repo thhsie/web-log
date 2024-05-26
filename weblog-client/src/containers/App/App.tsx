@@ -11,6 +11,7 @@ import { CreateBlog } from "../../components/CreateBlog/CreateBlog";
 import { BlogList } from "../../components/BlogList/BlogList";
 import { BlogPost } from "../../components/BlogPost/BlogPost";
 import { Notifications } from "@mantine/notifications";
+import { EditBlog } from "../../components/EditBlog/EditBlog";
 
 export const App: React.FC = () => {
   return (
@@ -42,6 +43,14 @@ export const App: React.FC = () => {
           element={
             <Page>
               <BlogPost />
+            </Page>
+          }
+        />
+        <Route
+          path={routes.BLOG_EDIT}
+          element={
+            <Page>
+              <EditBlog />
             </Page>
           }
         />
