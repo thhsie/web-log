@@ -1,16 +1,16 @@
 # Weblog.Api
 
-Weblog.Api is a minimal API built using .NET 8 and Entity Framework Core. It provides a simple CRUD (Create, Read, Update, Delete) interface for managing blog posts. It is intended to be consumed by weblog-client.
+Weblog.Api is a minimal API built using .NET 8. It provides simple CRUD (Create, Read, Update, Delete) endpoints for managing blog posts. It is intended to be consumed by **[weblog-client](../weblog-client)**.
 
 ## Prerequisites
-- Docker
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
 ### OR
 
 - .NET 8 SDK
 - SQL Server
 
-## Getting Started (Development mode)
+## Getting started (Development mode)
 
 1. Navigate to the project directory:
 
@@ -74,7 +74,7 @@ The Weblog.Api provides the following endpoints:
 - `PUT /blogs/{id}`: Updates an existing blog post.
 - `DELETE /blogs/{id}`: Deletes a blog post.
 
-## Technologies Used
+## Technologies used
 
 - .NET 8
 - Entity Framework Core

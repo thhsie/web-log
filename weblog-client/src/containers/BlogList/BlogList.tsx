@@ -6,13 +6,13 @@ import {
   Box,
 } from "@mantine/core";
 import classes from "./BlogList.module.css";
-import { ConfirmationModal } from "../ConfirmationModal/ConfirmationModal";
+import { ConfirmationModal } from "../../components/ConfirmationModal/ConfirmationModal";
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Blog } from '../../api/api';
 import WeblogClient from "../../api/WeblogClient";
 import { notifications } from '@mantine/notifications';
-import { BlogCard } from "../BlogCard/BlogCard";
+import { BlogCard } from "../../components/BlogCard/BlogCard";
 import { useBaseUrl } from "../../contexts/BaseUrlContext";
 
 export const BlogList: React.FC = () => {

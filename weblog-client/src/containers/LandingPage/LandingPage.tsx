@@ -37,7 +37,7 @@ export const LandingPage: React.FC = () => {
         >
           here.
         </Anchor>{" "}
-        Lastly, a minimal .NET API was developed for this project and, for your convenience, was also deployed.
+        Lastly, a .NET minimal API was developed for this project and, for your convenience, was also deployed.
       </Text>
     </>
   );

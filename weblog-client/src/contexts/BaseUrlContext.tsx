@@ -1,4 +1,5 @@
 import { createContext, useState, ReactNode, useContext } from 'react';
+import { apiUrl } from '../api/WeblogClient';
 
 interface BaseUrlContextValue {
   baseUrl: string;
@@ -8,7 +9,7 @@ interface BaseUrlContextValue {
 const BaseUrlContext = createContext<BaseUrlContextValue | undefined>(undefined);
 
 export const BaseUrlProvider = ({ children }: { children: ReactNode }) => {
-  const [baseUrl, setBaseUrl] = useState<string>('http://weblog.runasp.net');
+  const [baseUrl, setBaseUrl] = useState<string>(apiUrl.DEV);
 
   return (
     <BaseUrlContext.Provider value={{ baseUrl, setBaseUrl }}>

@@ -15,7 +15,6 @@
 }
 
 .blogTitle {
-  font-family: Greycliff CF, var(--mantine-font-family);
   font-weight: 700;
   margin-top: var(--mantine-spacing-md);
   margin-left: var(--mantine-spacing-md);

@@ -7,11 +7,11 @@ import { routes } from "../../routes/routes";
 import { LandingPage } from "../LandingPage/LandingPage";
 import { Header } from "../../components/Header/Header";
 import { Page } from "../Page/Page";
-import { CreateBlog } from "../../components/CreateBlog/CreateBlog";
-import { BlogList } from "../../components/BlogList/BlogList";
-import { BlogPost } from "../../components/BlogPost/BlogPost";
+import { CreateBlog } from "../CreateBlog/CreateBlog";
+import { BlogList } from "../BlogList/BlogList";
+import { BlogPost } from "../BlogPost/BlogPost";
 import { Notifications } from "@mantine/notifications";
-import { EditBlog } from "../../components/EditBlog/EditBlog";
+import { EditBlog } from "../EditBlog/EditBlog";
 import { BaseUrlProvider } from "../../contexts/BaseUrlContext";
 
 export const App: React.FC = () => {

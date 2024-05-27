@@ -23,4 +23,4 @@ Weblog is a simple CRUD (Create, Read, Update, Delete) app built using Vite, Rea
 
 ## API Integration
 
-This client app consumes a minimal API built using .NET and written in C# (Weblog.Api).
+This client app consumes an API built using .NET and written in C#. (**[Weblog.Api](../Weblog.Api)**)
