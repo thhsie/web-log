@@ -7,12 +7,14 @@ import { notifications } from "@mantine/notifications";
 import { useNavigate, useParams } from "react-router-dom";
 import { routes } from "../../routes/routes";
 import { useEffect } from "react";
+import { useBaseUrl } from "../../contexts/BaseUrlContext";
 
 export const EditBlog: React.FC = () => {
+  const { baseUrl } = useBaseUrl();
   const { blogId } = useParams<{ blogId: string }>();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const blogClient = new WeblogClient();
+  const blogClient = new WeblogClient(baseUrl);
 
   const { data: blog, isLoading, isError, error } = useQuery({
     queryKey: ["blog", blogId],

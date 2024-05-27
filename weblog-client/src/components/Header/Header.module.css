@@ -5,6 +5,7 @@
   position: sticky;
   top: 0;
   z-index: 100;
+  min-width: 100%;
 }
 
 .inner {
@@ -24,6 +25,8 @@
 
 .tabs {
   margin-right: calc(var(--mantine-spacing-sm) * -1);
+  display: flex;
+  align-items: center;
 }
 
 .mainLink {
@@ -37,7 +40,7 @@
     border-color 100ms ease,
     color 100ms ease;
 
-  @mixin hover {
+  &:hover {
     color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
     text-decoration: none;
   }
@@ -48,6 +51,10 @@
   }
 }
 
+.baseUrlSelect {
+  margin-left: var(--mantine-spacing-sm);
+}
+
 .burger {
   display: none;
 
@@ -55,3 +62,13 @@
     display: block;
   }
 }
+
+/* header.module.css */
+.selectApiContainer {
+  margin-left: var(--mantine-spacing-lg);
+}
+
+.baseUrlSelect {
+  margin-left: var(--mantine-spacing-xs);
+}
+

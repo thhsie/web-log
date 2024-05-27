@@ -13,10 +13,12 @@ import { Blog } from '../../api/api';
 import WeblogClient from "../../api/WeblogClient";
 import { notifications } from '@mantine/notifications';
 import { BlogCard } from "../BlogCard/BlogCard";
+import { useBaseUrl } from "../../contexts/BaseUrlContext";
 
 export const BlogList: React.FC = () => {
+  const { baseUrl } = useBaseUrl();
   const queryClient = useQueryClient();
-  const blogClient = new WeblogClient();
+  const blogClient = new WeblogClient(baseUrl);
 
   const { data: blogs, isLoading, isError, error } = useQuery({
     queryKey: ['blogs'],

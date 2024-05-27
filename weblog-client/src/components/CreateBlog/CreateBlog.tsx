@@ -6,11 +6,13 @@ import { Blog, IBlog } from "../../api/api";
 import { notifications } from "@mantine/notifications";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../routes/routes";
+import { useBaseUrl } from "../../contexts/BaseUrlContext";
 
 export const CreateBlog: React.FC = () => {
+  const { baseUrl } = useBaseUrl();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const blogClient = new WeblogClient();
+  const blogClient = new WeblogClient(baseUrl);
 
   const form = useForm({
     initialValues: {

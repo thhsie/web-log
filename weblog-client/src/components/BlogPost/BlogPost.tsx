@@ -7,11 +7,13 @@ import WeblogClient from "../../api/WeblogClient";
 import { notifications } from "@mantine/notifications";
 import ReactMarkdown from 'react-markdown';
 import classes from './BlogPost.module.css'
+import { useBaseUrl } from "../../contexts/BaseUrlContext";
 
 export const BlogPost: React.FC = () => {
+  const { baseUrl } = useBaseUrl();
   const { blogId } = useParams<{ blogId: string }>();
   const navigate = useNavigate();
-  const blogClient = new WeblogClient();
+  const blogClient = new WeblogClient(baseUrl);
 
   const { data: blog, isLoading, isError, error } = useQuery({
     queryKey: ["blog", blogId],

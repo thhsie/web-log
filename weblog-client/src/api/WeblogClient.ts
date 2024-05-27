@@ -1,12 +1,17 @@
 import axios, { AxiosInstance } from 'axios';
 import { Blog, IBlog } from './api.ts';
 
+export const apiUrl = {
+    LOCALHOST: 'http://localhost:8080',
+    DEV: 'http://weblog.runasp.net',
+}
+
 class WeblogClient {
     private http: AxiosInstance;
 
-    constructor(baseUrl?: string) {
+    constructor(baseUrl: string) {
         this.http = axios.create({
-            baseURL: baseUrl ?? "http://localhost:8080",
+            baseURL: baseUrl,
         });
     }
 
