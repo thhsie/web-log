@@ -35,17 +35,21 @@ public class BlogRepository : IBlogRepository
     }
 
     public async Task<Blog?> UpdateAsync(int id, Blog blog)
-    {
-        var existingBlog = await _dbContext.Blogs.FindAsync(id);
-        if (existingBlog == null)
-            return null;
+{
+    var existingBlog = await _dbContext.Blogs.FindAsync(id);
+    if (existingBlog == null)
+        return null;
 
-        existingBlog = new Blog(blog.Id, blog.Title, blog.Content, blog.TruncatedContent);
+    existingBlog.Title = blog.Title;
+    existingBlog.Content = blog.Content;
+    existingBlog.TruncatedContent = blog.TruncatedContent;
 
-        _dbContext.Blogs.Update(existingBlog);
-        await _dbContext.SaveChangesAsync();
-        return existingBlog;
-    }
+    _dbContext.Blogs.Update(existingBlog);
+    await _dbContext.SaveChangesAsync();
+    return existingBlog;
+}
+
+
 
     public async Task<bool> DeleteAsync(int id)
     {

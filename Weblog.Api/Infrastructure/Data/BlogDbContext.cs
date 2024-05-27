@@ -14,8 +14,7 @@ public class BlogDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Blog>().HasData(
-            new Blog(1, "First Blog Post", "This is the content of the first blog post.", "This is the content of the first blog post.")
+            new Blog { Id = 1, Title = "First Blog Post", Content = "This is the content of the first blog post.", TruncatedContent = "This is the content of the first blog post." }
         );
     }
 }
-

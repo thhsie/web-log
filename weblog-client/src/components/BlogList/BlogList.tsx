@@ -21,12 +21,12 @@ export const BlogList: React.FC = () => {
   const blogClient = new WeblogClient(baseUrl);
 
   const { data: blogs, isLoading, isError, error } = useQuery({
-    queryKey: ['blogs'],
+    queryKey: ['blogs', baseUrl],
     queryFn: async () => {
       const response = await blogClient.getBlogs();
       return response;
     }
-  });
+  });  
 
   const [deleteBlogId, setDeleteBlogId] = useState<number | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -34,10 +34,10 @@ export const BlogList: React.FC = () => {
   const deleteBlogMutation = useMutation({
     mutationFn: (id: number) => blogClient.deleteBlog(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['blogs'] })
+      queryClient.invalidateQueries({ queryKey: ['blogs', baseUrl] });
     },
   });
-
+  
   const handleDeleteBlog = (blogId: number) => {
     setDeleteBlogId(blogId);
     setIsDeleteModalOpen(true);
@@ -95,7 +95,7 @@ export const BlogList: React.FC = () => {
           inherit
           variant="gradient"
           component="span"
-          gradient={{ from: "pink", to: "yellow" }}
+          gradient={{ from: "purple", to: "blue" }}
         >
           weblogs
         </Text>

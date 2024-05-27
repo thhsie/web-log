@@ -10,7 +10,7 @@ export const LandingPage: React.FC = () => {
           inherit
           variant="gradient"
           component="span"
-          gradient={{ from: "pink", to: "yellow" }}
+          gradient={{ from: "purple", to: "blue" }}
         >
           Weblog
         </Text>
@@ -24,7 +24,7 @@ export const LandingPage: React.FC = () => {
         >
           This technical assignment
         </Anchor>{" "}
-        showcases the use of React concepts (router, components, state, props,
+        showcases the use of React concepts (router, context, components, state, props,
         lifecycle methods, hooks). Furthermore, TanStack Query, a library
         designed to replace global state managers such as Redux and MobX is
         incorporated. More information on how they provide this better approach
@@ -37,6 +37,7 @@ export const LandingPage: React.FC = () => {
         >
           here.
         </Anchor>{" "}
+        Lastly, a minimal .NET API was developed for this project and, for your convenience, was also deployed.
       </Text>
     </>
   );

@@ -25,13 +25,13 @@ public class BlogService : IBlogService
 
     public async Task<Blog> CreateAsync(Blog blog)
     {
-        blog = new Blog(blog.Id, blog.Title, blog.Content, blog.Content.Substring(0, Math.Min(100, blog.Content.Length)) + "...");
+        blog.TruncatedContent = blog.Content.Substring(0, Math.Min(100, blog.Content.Length)) + "...";
         return await _blogRepository.CreateAsync(blog);
     }
 
     public async Task<Blog?> UpdateAsync(int id, Blog blog)
     {
-        blog = new Blog(blog.Id, blog.Title, blog.Content, blog.Content.Substring(0, Math.Min(100, blog.Content.Length)) + "...");
+        blog.TruncatedContent = blog.Content.Substring(0, Math.Min(100, blog.Content.Length)) + "...";
         return await _blogRepository.UpdateAsync(id, blog);
     }
 

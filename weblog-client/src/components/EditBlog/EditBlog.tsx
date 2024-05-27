@@ -111,7 +111,7 @@ export const EditBlog: React.FC = () => {
           inherit
           variant="gradient"
           component="span"
-          gradient={{ from: "pink", to: "yellow" }}
+          gradient={{ from: "purple", to: "blue" }}
         >
           blog
         </Text>
