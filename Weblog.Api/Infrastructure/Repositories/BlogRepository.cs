@@ -17,16 +17,10 @@ public class BlogRepository : IBlogRepository
 
     public async Task<IEnumerable<BlogPreview>> GetAllAsync()
     {
-        var blogs = await _dbContext.Blogs.Select(b => new BlogPreview
-        {
-            Id = b.Id,
-            Title = b.Title,
-            TruncatedContent = b.TruncatedContent!
-        }).ToListAsync();
+        var blogs = await _dbContext.Blogs.Select(b => new BlogPreview(b.Id ?? 0, b.Title, b.TruncatedContent ?? string.Empty)).ToListAsync();
 
         return blogs;
     }
-
 
     public async Task<Blog?> GetByIdAsync(int id)
     {
@@ -46,10 +40,9 @@ public class BlogRepository : IBlogRepository
         if (existingBlog == null)
             return null;
 
-        existingBlog.Title = blog.Title;
-        existingBlog.Content = blog.Content;
-        existingBlog.TruncatedContent = blog.TruncatedContent;
+        existingBlog = new Blog(blog.Id, blog.Title, blog.Content, blog.TruncatedContent);
 
+        _dbContext.Blogs.Update(existingBlog);
         await _dbContext.SaveChangesAsync();
         return existingBlog;
     }
