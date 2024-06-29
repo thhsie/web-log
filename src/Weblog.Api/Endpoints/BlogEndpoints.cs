@@ -17,7 +17,6 @@ public static class BlogEndpoints
     /// <returns>A list of blogs.</returns>
     internal static async Task<IResult> GetAllBlogs(IBlogService blogService)
     {
-
         var blogs = await blogService.GetAllAsync();
         return Results.Ok(blogs);
     }
@@ -28,7 +27,6 @@ public static class BlogEndpoints
     /// <returns>The blog with the specified ID, or a 404 NotFound if the blog is not found.</returns>
     internal static async Task<IResult> GetBlogById(int id, IBlogService blogService)
     {
-
         var blog = await blogService.GetByIdAsync(id);
         if (blog == null)
             return Results.NotFound();
@@ -41,7 +39,6 @@ public static class BlogEndpoints
     /// <returns>The created blog, with its ID.</returns>
     internal static async Task<IResult> CreateBlog(Blog blog, IBlogService blogService)
     {
-
         var createdBlog = await blogService.CreateAsync(blog);
         return Results.Created($"/blogs/{createdBlog.Id}", createdBlog);
     }
@@ -53,7 +50,6 @@ public static class BlogEndpoints
     /// <returns>The updated blog, or a 404 NotFound if the blog is not found.</returns>
     internal static async Task<IResult> UpdateBlog(int id, Blog blog, IBlogService blogService)
     {
-
         var updatedBlog = await blogService.UpdateAsync(id, blog);
         if (updatedBlog == null)
             return Results.NotFound();
@@ -66,7 +62,6 @@ public static class BlogEndpoints
     /// <returns>A 204 NoContent response if the blog was deleted, or a 404 NotFound if the blog is not found.</returns>
     internal static async Task<IResult> DeleteBlog(int id, IBlogService blogService)
     {
-
         var isDeleted = await blogService.DeleteAsync(id);
         if (!isDeleted)
             return Results.NotFound();
