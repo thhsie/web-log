@@ -1,5 +1,3 @@
-using System;
-
 namespace Weblog.Core.SharedKernel;
 
 /// <summary>

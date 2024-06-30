@@ -1,5 +1,3 @@
-using System.Linq;
-
 namespace Weblog.Core.Extensions;
 
 public static class GenericTypeExtensions
