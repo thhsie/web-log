@@ -8,14 +8,15 @@ using MediatR;
 using Weblog.Application.Blog.Commands;
 using Weblog.Core.SharedKernel;
 
+
 namespace Weblog.Application.Blog.Handlers;
 
-public class DeleteBlogCommandHandler(
-    IValidator<DeleteBlogCommand> validator,
+public class UpdateBlogCommandHandler(
+    IValidator<UpdateBlogCommand> validator,
     IWriteOnlyRepository<Domain.Entities.BlogAggregate.Blog, Guid> repository,
-    IUnitOfWork unitOfWork) : IRequestHandler<DeleteBlogCommand, Result>
+    IUnitOfWork unitOfWork) : IRequestHandler<UpdateBlogCommand, Result>
 {
-    public async Task<Result> Handle(DeleteBlogCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(UpdateBlogCommand request, CancellationToken cancellationToken)
     {
         // Validating the request.
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
@@ -25,21 +26,21 @@ public class DeleteBlogCommandHandler(
             return Result.Invalid(validationResult.AsErrors());
         }
 
-        // Retrieving the Blog from the database.
+        // Getting the Blog from the database.
         var Blog = await repository.GetByIdAsync(request.Id);
-        if (Blog == null)
+        if (Blog is null)
             return Result.NotFound($"No Blog found by Id: {request.Id}");
 
-        // Marking the entity as deleted, the BlogDeletedEvent will be added.
-        Blog.Delete();
+        // Changing the email in the entity.
+        Blog.Edit(new Domain.Entities.BlogAggregate.Blog(request.Id, request.Title, request.Content, DateTime.Now));
 
-        // Removing the entity from the repository.
-        repository.Remove(Blog);
+        // Updating the entity in the repository.
+        repository.Update(Blog);
 
-        // Saving the changes to the database and triggering the events.
+        // Saving the changes to the database and firing events.
         await unitOfWork.SaveChangesAsync();
 
         // Returning the success message.
-        return Result.SuccessWithMessage("Successfully removed!");
+        return Result.SuccessWithMessage("Updated successfully!");
     }
 }

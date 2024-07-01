@@ -1,21 +1,21 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Ardalis.Result;
 using Ardalis.Result.FluentValidation;
 using FluentValidation;
 using MediatR;
-using Weblog.Application.User.Commands;
+using Weblog.Application.Blog.Commands;
 using Weblog.Core.SharedKernel;
-using Weblog.Domain.Entities.UserAggregate;
 
-namespace Weblog.Application.User.Handlers;
+namespace Weblog.Application.Blog.Handlers;
 
-public class DeleteUserCommandHandler(
-    IValidator<DeleteUserCommand> validator,
-    IUserWriteOnlyRepository repository,
-    IUnitOfWork unitOfWork) : IRequestHandler<DeleteUserCommand, Result>
+public class DeleteBlogCommandHandler(
+    IValidator<DeleteBlogCommand> validator,
+    IWriteOnlyRepository<Domain.Entities.BlogAggregate.Blog, Guid> repository,
+    IUnitOfWork unitOfWork) : IRequestHandler<DeleteBlogCommand, Result>
 {
-    public async Task<Result> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(DeleteBlogCommand request, CancellationToken cancellationToken)
     {
         // Validating the request.
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
@@ -25,16 +25,16 @@ public class DeleteUserCommandHandler(
             return Result.Invalid(validationResult.AsErrors());
         }
 
-        // Retrieving the User from the database.
-        var User = await repository.GetByIdAsync(request.Id);
-        if (User == null)
-            return Result.NotFound($"No User found by Id: {request.Id}");
+        // Retrieving the Blog from the database.
+        var Blog = await repository.GetByIdAsync(request.Id);
+        if (Blog is null)
+            return Result.NotFound($"No Blog found by Id: {request.Id}");
 
-        // Marking the entity as deleted, the UserDeletedEvent will be added.
-        User.Delete();
+        // Marking the entity as deleted, the BlogDeletedEvent will be added.
+        Blog.Delete();
 
         // Removing the entity from the repository.
-        repository.Remove(User);
+        repository.Remove(Blog);
 
         // Saving the changes to the database and triggering the events.
         await unitOfWork.SaveChangesAsync();

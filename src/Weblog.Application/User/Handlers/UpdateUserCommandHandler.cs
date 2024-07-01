@@ -29,7 +29,7 @@ public class UpdateUserCommandHandler(
 
         // Getting the User from the database.
         var User = await repository.GetByIdAsync(request.Id);
-        if (User == null)
+        if (User is null)
             return Result.NotFound($"No User found by Id: {request.Id}");
 
         // Instantiating the Email value object.
